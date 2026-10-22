@@ -1,11 +1,15 @@
-# HTTPD 2.4
-ARG VERSION=2.4
-FROM httpd:$VERSION-alpine
+FROM httpd:2.4-alpine
 
-LABEL authors="Florentin Munsch <flo.m68@gmailc.om>"
+LABEL base_image="httpd:2.4-alpine"
+LABEL authors="Florentin Munsch <flo.m68@gmail.com>"
+LABEL maintainer="Florentin Munsch <flo.m68@gmail.com>"
 LABEL company="KMSF"
 LABEL website="www.munschflorentin.fr"
-LABEL version="1.0"
+LABEL version="1.1"
+LABEL date="2026-10-20"
+LABEL description="HTTPD 2.4 with common modules and tools for development"
+LABEL license="Unlicense"
+LABEL repository="https://github.com/Florentin68/docker-httpd"
 
 ENV PORT=80
 

@@ -6,22 +6,18 @@ name: Docker publish
 # documentation.
 
 on:
-#  schedule:
-#    - cron: '0 0 * * *'
   workflow_dispatch:
   push:
     branches: [ "main" ]
-#    # Publish semver tags as releases.
-#    tags: [ 'v*.*.*' ]
-#  pull_request:
-#    branches: [ "main" ]
+    # Publish semver tags as releases.
+    tags: [ 'v*.*' ]
+  pull_request:
 
 env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
-
 
 jobs:
   # test:
@@ -96,7 +92,7 @@ jobs:
       # https://github.com/docker/build-push-action
       - name: Build and push Docker image
         id: build-and-push
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           push: ${{ github.event_name != 'pull_request' }}
@@ -128,3 +124,24 @@ jobs:
       #  # This step uses the identity token to provision an ephemeral certificate
       #  # against the sigstore community Fulcio instance.
       #  run: echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
+
+      # - name: Create GitHub Release
+      #   uses: softprops/action-gh-release@v2
+      #   with:
+      #     tag_name: \${{ github.ref_name }}
+      #     name: Release \${{ steps.parse_versions.outputs.IMAGE_TAG }}
+      #     body: |
+      #       ## 🚀 Nouvelle image PostgreSQL personnalisée disponible !
+            
+      #       Cette version combine **PostGIS** et **pgvector** dans une seule instance.
+            
+      #       ### 📌 Versions incluses :
+      #       - **Image de base (PostGIS) :** `postgis/postgis:${{ steps.parse_versions.outputs.POSTGIS_VER }}`
+      #       - **Extension de vecteurs (pgvector) :** `${{ steps.parse_versions.outputs.VECTOR_VER }}`
+            
+      #       ### 🐳 Utilisation dans votre Docker Compose :
+      #       ```yaml
+      #       image: ghcr.io/\({{ env.IMAGE_NAME }}:\){{ steps.parse_versions.outputs.IMAGE_TAG }}
+      #       ```
+      #     draft: false
+      #     prerelease: false
