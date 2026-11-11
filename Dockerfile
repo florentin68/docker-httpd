@@ -1,4 +1,4 @@
-FROM httpd:2.4-alpine@sha256:698a0f59374eeb59c2c3ae6385c5f346edd2c70c2b63f7b552fb3d64dbc3cf66
+FROM httpd:2.4-alpine@sha256:610eddacdacf681838190f5e2fda06dba783384c71610b247a765e8f8faadfc6
 
 LABEL base_image="httpd:2.4-alpine"
 LABEL authors="Florentin Munsch <flo.m68@gmail.com>"
